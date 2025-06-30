@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import { Users } from "../components/users";
+import { redirect } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -8,6 +8,6 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
-  return <Users />;
+export function loader({}) {
+  return redirect("/users");
 }
