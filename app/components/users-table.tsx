@@ -5,6 +5,8 @@ import {
   type MRT_ColumnDef,
 } from "material-react-table";
 import { useMemo } from "react";
+import { useUsers } from "~/contexts/user-context";
+import { Error } from "./error";
 
 type User = {
   id: number;
@@ -22,7 +24,11 @@ type UsersTableProps = {
   users: User[];
 };
 
-export function UsersTable({ users }: UsersTableProps) {
+export function UsersTable() {
+  const { users, isLoading, error, refetchUsers } = useUsers();
+
+  if (error) return <Error errorMessage={error} />;
+
   const data = useMemo(() => users, [users]);
   const columns = useMemo<MRT_ColumnDef<User>[]>(
     () => [
@@ -53,6 +59,12 @@ export function UsersTable({ users }: UsersTableProps) {
   const table = useMaterialReactTable({
     columns,
     data,
+    renderTopToolbarCustomActions: ({ table }) => (
+      <Button onClick={() => refetchUsers()}>refetch users</Button>
+    ),
+    state: {
+      isLoading,
+    },
   });
 
   return (
