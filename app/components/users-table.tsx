@@ -1,17 +1,15 @@
-export type Users = {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  company: {
-    name: string;
-    catchPhrase: string;
-    bs: string;
-  };
-};
-
 type UsersTableProps = {
-  users: Array<Users>;
+  users: Array<{
+    id: number;
+    name: string;
+    username: string;
+    email: string;
+    company: {
+      name: string;
+      catchPhrase: string;
+      bs: string;
+    };
+  }>;
 };
 
 export function UsersTable({ users }: UsersTableProps) {
